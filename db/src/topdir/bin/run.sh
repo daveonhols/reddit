@@ -1,0 +1,1 @@
+/c/q/w32/q.exe code/tick.q -p 10000 > ./logs/ticker.log 2>&1 &
