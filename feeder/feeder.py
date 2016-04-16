@@ -8,7 +8,7 @@ import threading
 
 REDDIT = praw.Reddit(user_agent='test')
 SCHED = sched.scheduler(time.time, time.sleep)
-NEXTTIME = time.time()+60
+NEXTTIME = time.time()+5
 
 def get():
     global NEXTTIME;
