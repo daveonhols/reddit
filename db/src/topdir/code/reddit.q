@@ -1,1 +1,1 @@
-reddit:([] time:`time$(); sym:`symbol$(); id:(); title:(); sub:(); rnk:`int$());
+reddit:([] time:`time$(); sym:`symbol$(); id:(); title:(); sub:(); rnk:`int$(); gild:`int$(); ups:`int$(); downs:`int$(); link:());
