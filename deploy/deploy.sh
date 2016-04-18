@@ -9,7 +9,8 @@ fi
 
 if [ -f /apps/$app/$1/bin/stop.sh ]; then
 	cd /apps/$app/$1/
-	/apps/$app/$1/bin/stop.sh
+	./bin/stop.sh
+	cd -
 fi
 
 

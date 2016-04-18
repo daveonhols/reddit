@@ -12,12 +12,12 @@ NEXTTIME = time.time()+5
 
 def get():
     global NEXTTIME;
-    NEXTTIME+=60*5
+    NEXTTIME+=60
 
     SCHED.enterabs(NEXTTIME,1,get,())
 
     time=datetime.datetime.utcnow().strftime('%H:%M:%S.%f')[:-3]
-    entries = REDDIT.get_front_page(limit=100)
+    entries = REDDIT.get_front_page(limit=500)
     rank = 0;
     http = urllib3.PoolManager(50)
 
