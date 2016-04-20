@@ -13,7 +13,7 @@ print(LISTEN_PORT)
 def get():
 
     time=datetime.datetime.utcnow().strftime('%H:%M:%S.%f')[:-3]
-    entries = REDDIT.get_front_page(limit=20)
+    entries = REDDIT.get_front_page(limit=500)
     rank = 0;
     http = urllib3.PoolManager(50)
 
