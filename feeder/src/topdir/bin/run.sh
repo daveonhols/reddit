@@ -1,4 +1,4 @@
 #!/bin/bash
 NOW=`date +%Y%m%d-%H.%M.%S`
 
-$PYEXE code/feeder.py > ./logs/$NOW"_feeder.log" 2>&1 &
+$PYEXE code/feeder.py 10020 > ./logs/$NOW"_feeder.log" 2>&1 &
