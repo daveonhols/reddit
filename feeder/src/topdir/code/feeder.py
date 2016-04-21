@@ -5,7 +5,7 @@ import datetime
 import runner
 import sys
 
-REDDIT = praw.Reddit(user_agent='test')
+REDDIT = praw.Reddit(user_agent='User-Agent: praw:com.github.daveonhols.reddit:v0.0.1 (by /u/__d7)')
 LISTEN_PORT=int(sys.argv[1])
 
 print(LISTEN_PORT)
