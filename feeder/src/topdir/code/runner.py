@@ -14,7 +14,7 @@ class Stoppable:
     _scheduler = sched.scheduler(time.time, time.sleep)
     _checkStopFrequency=5;
     _nextTime=time.time()+5;
-    _doInterval=20;
+    _doInterval=60;
     _do=PrintTime
     _listenPort=0;
 
