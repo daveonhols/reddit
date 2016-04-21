@@ -16,10 +16,11 @@ class Stoppable:
     _nextTime=time.time()+5;
     _doInterval=20;
     _do=PrintTime
-    _listenPort=10020;
+    _listenPort=0;
 
-    def __init__(self,job=PrintTime):
+    def __init__(self,job=PrintTime,listenPort=10020):
         self._do=job
+        self._listenPort=listenPort
         listenThread = threading.Thread(target=self.Listen)
         listenThread.start()
         self._scheduler.enter(self._checkStopFrequency, 1, self.CheckOnTimer)

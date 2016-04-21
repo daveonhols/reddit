@@ -2,10 +2,13 @@ import praw
 import urllib3
 import urllib.parse
 import datetime
-
 import runner
+import sys
 
 REDDIT = praw.Reddit(user_agent='test')
+LISTEN_PORT=int(sys.argv[1])
+
+print(LISTEN_PORT)
 
 def get():
 
@@ -37,4 +40,4 @@ def get():
         print(msg.encode("utf-8", "backslashreplace"))
         rank+=1
 
-r = runner.Stoppable(get)
+r = runner.Stoppable(get, LISTEN_PORT)
