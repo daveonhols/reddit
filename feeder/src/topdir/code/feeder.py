@@ -3,12 +3,16 @@ import urllib3
 import urllib.parse
 import datetime
 import runner
+import log
 import sys
 
 REDDIT = praw.Reddit(user_agent='User-Agent: praw:com.github.daveonhols.reddit:v0.0.1 (by /u/__d7)')
 LISTEN_PORT=int(sys.argv[1])
 
-print(LISTEN_PORT)
+log.logInfo("Listening on"+str(LISTEN_PORT))
+
+def thrower():
+    raise Exception("Test exception at "+ datetime.datetime.utcnow().strftime('%H:%M:%S.%f')[:-3])
 
 def get():
 
@@ -37,7 +41,7 @@ def get():
         url= 'http://127.0.0.1:10000/?'+ urllib.parse.quote(msg);
 
         http.request('GET',url)
-        print(msg.encode("utf-8", "backslashreplace"))
+        log.logInfo(msg.encode("utf-8", "backslashreplace"))
         rank+=1
 
 r = runner.Stoppable(get, LISTEN_PORT)

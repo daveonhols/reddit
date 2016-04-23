@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.daveonhols</groupId>
+    <artifactId>reddit.feeder</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>reddit.feeder</name>
+
+    <packaging>jar</packaging>
+
+    <build>
+    <plugins>
+        <plugin>
+            <artifactId>exec-maven-plugin</artifactId>
+            <groupId>org.codehaus.mojo</groupId>
+            <version>1.4.0</version>
+            <executions>
+                <execution>
+                    <id>Shell out for python testing</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                    <configuration>
+                        <executable>${env.PYEXE}</executable>
+                        <workingDirectory>${project.basedir}/src/topdir/code</workingDirectory>
+                        <arguments>
+                            <argument>-m</argument>
+                            <argument>unittest</argument>
+                            <argument>discover</argument>
+                            <argument>-s</argument>
+                            <argument>../test</argument>
+                            <argument>-v</argument>
+                        </arguments>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+    </build>
+</project>
