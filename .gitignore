@@ -2,3 +2,5 @@
 *.iml
 *tplog/
 *logs/
+*src/target*
+*__pycache__*

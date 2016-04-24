@@ -1,28 +1,34 @@
 import sys
 import threading
-import datetime;
+import datetime
 import socket
 import sched, time
+import log
 
 class Stoppable:
 
     def PrintTime(self):
         time=datetime.datetime.utcnow().strftime('%H:%M:%S.%f')[:-3]
-        print(time)
+        log.logInfo(time)
 
     _isActive=True;
     _scheduler = sched.scheduler(time.time, time.sleep)
     _checkStopFrequency=5;
     _nextTime=time.time()+5;
-    _doInterval=60;
+    _doInterval=0;
     _do=PrintTime
     _listenPort=0;
+    _maxFails=0;
+    _fails=0
 
-    def __init__(self,job=PrintTime,listenPort=10020):
+    def __init__(self,job=PrintTime,listenPort=10020, maxFails=5, doInterval=60):
         self._do=job
         self._listenPort=listenPort
         listenThread = threading.Thread(target=self.Listen)
+        listenThread.daemon=True
         listenThread.start()
+        self._maxFails=maxFails
+        self._doInterval=doInterval
         self._scheduler.enter(self._checkStopFrequency, 1, self.CheckOnTimer)
         self._scheduler.enterabs(self._nextTime, 1, self.DoJob)
         self._scheduler.run()
@@ -46,7 +52,7 @@ class Stoppable:
                     self.handleMsg(msg)
 
             finally:
-                print("cleaning up...")
+                log.logInfo("cleaning up...")
                 connection.close()
                 sock.close()
 
@@ -63,5 +69,14 @@ class Stoppable:
         self.CheckShouldStop()
         self._nextTime+=self._doInterval
         self._scheduler.enterabs(self._nextTime,1,self.DoJob)
-        self._do()
-
+        try:
+            self._do()
+            self._fails=0;
+        except BaseException as bex:
+            log.logWarn("Job run triggered an error:"+str(bex))
+            self._fails+=1;
+            if self._fails > self._maxFails:
+                log.logError("Too many errors, exiting...")
+                raise
+        finally:
+            log.logInfo("Done a loop")
