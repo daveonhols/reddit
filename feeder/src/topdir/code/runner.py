@@ -1,4 +1,5 @@
 import sys
+import traceback
 import threading
 import datetime
 import socket
@@ -73,10 +74,10 @@ class Stoppable:
             self._do()
             self._fails=0;
         except BaseException as bex:
-            log.logWarn("Job run triggered an error:"+str(bex))
+            log.logWarn("Job run triggered an error:"+traceback.format_exc())
             self._fails+=1;
             if self._fails > self._maxFails:
-                log.logError("Too many errors, exiting...")
+                log.logError("Too many errors, will exit:"+traceback.format_exc())
                 raise
         finally:
             log.logInfo("Done a loop")

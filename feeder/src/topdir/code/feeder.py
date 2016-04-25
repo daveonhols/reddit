@@ -11,9 +11,6 @@ LISTEN_PORT=int(sys.argv[1])
 
 log.logInfo("Listening on"+str(LISTEN_PORT))
 
-def thrower():
-    raise Exception("Test exception at "+ datetime.datetime.utcnow().strftime('%H:%M:%S.%f')[:-3])
-
 def get():
 
     time=datetime.datetime.utcnow().strftime('%H:%M:%S.%f')[:-3]
@@ -41,7 +38,7 @@ def get():
         url= 'http://127.0.0.1:10000/?'+ urllib.parse.quote(msg);
 
         http.request('GET',url)
-        log.logInfo(msg.encode("utf-8", "backslashreplace"))
+        log.logInfo(str(msg.encode("utf-8", "backslashreplace")))
         rank+=1
 
 r = runner.Stoppable(get, LISTEN_PORT)
